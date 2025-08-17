@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz3 (Javascript)</title>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>array1</h3>
+    <table id="arr1" style="width: 20%">
+      <tr></tr>
+    </table>
+    <h3>array2</h3>
+    <table id="arr2" style="width: 20%">
+      <tr></tr>
+    </table>
+    <hr />
+    <h3>output</h3>
+    <table id="output" style="width: 30%">
+      <tr></tr>
+    </table>
+  </body>
+</html>
+<script>
+  const array1 = [
+    { Code: "101", Name: "AAA" },
+    { Code: "102", Name: "BBB" },
+    { Code: "103", Name: "CCC" },
+  ];
+  // console.log(array1);
+  const array2 = [
+    { Code: "103", City: "Singapore" },
+    { Code: "102", City: "Tokyo" },
+    { Code: "101", City: "Bangkok" },
+  ];
+  // console.log(array2);
+
+  const mergeArray = array1.map((item1) => {
+    const item2 = array2.find((item2) => item2.Code === item1.Code);
+
+    return { ...item1, City: item2?.City ?? null };
+  });
+  // console.log(mergedArray);
+
+  createTableFromData("arr1", array1);
+  createTableFromData("arr2", array2);
+  createTableFromData("output", mergeArray);
+
+  function createTableFromData(tableId, arrayData) {
+    const tableHeadRow = document.querySelector(`#${tableId} tr`);
+    const tableBody = document.querySelector(`#${tableId}`);
+
+    const headers = Object.keys(arrayData[0]);
+    // console.log(headers);
+    headers.forEach((ele) => {
+      const th = document.createElement("th");
+      th.textContent = ele;
+      tableHeadRow.appendChild(th);
+    });
+
+    arrayData.forEach((ele) => {
+      const row = document.createElement("tr");
+      // console.log(ele);
+      Object.values(ele).forEach((item) => {
+        // console.log(item);
+        const cell = document.createElement("td");
+        if (tableId === "output") {
+          cell.style.width = "33%";
+        } else {
+          cell.style.width = "50%";
+        }
+
+        cell.textContent = item;
+        row.appendChild(cell);
+      });
+      tableBody.appendChild(row);
+    });
+  }
+</script>

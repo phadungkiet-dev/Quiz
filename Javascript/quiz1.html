@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz1 (Javascript)</title>
+  </head>
+  <body>
+    <label>Number of Star : </label>
+    <input type="number" id="number" min="1" />
+    <button onclick="generateTriangle()">Go</button>
+
+    <div id="output"></div>
+  </body>
+</html>
+
+<script>
+  function generateTriangle() {
+    const number = parseInt(document.getElementById("number").value);
+    let result = "";
+
+    if (number > 0) {
+      const isEven = number % 2 === 0; // bool true or false
+      // console.log(isEven);
+      // loop
+      for (let i = 0; i < number; i++) {
+        const stars = isEven ? i + 1 : number - i;
+        result += "*".repeat(stars) + "<br>";
+      }
+    } else {
+      alert("กรุณาป้อนตัวเลขในช่องป้อนข้อมูลและค่าต้องมากกว่า 0");
+      return;
+    }
+    document.getElementById("output").innerHTML = result;
+  }
+</script>

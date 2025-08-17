@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz2 (Javascript)</title>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <p>ผู้ใช้กรอกได้ 1 ช่อง</p>
+    <br />
+    <form id="test">
+      <table id="table1" style="width: 50%">
+        <tr></tr>
+      </table>
+      <br />
+      <button type="button" onclick="submitCalculate()">GO</button>
+      &nbsp;&nbsp;
+      <a href="javascript:void(0);" onclick="clearInputs(event)">Clear</a>
+    </form>
+  </body>
+</html>
+<script>
+  const headers = [100, 7, 107, 3, 104];
+
+  document.querySelector("#table1 tr").innerHTML = headers
+    .map((ele) => `<th style="width:10%">${ele}</th>`)
+    .join("");
+
+  const rowHtml = headers
+    .map(
+      (ele, index) =>
+        `<td><input type="number" id="data-${index}" style="width:100%;box-sizing:border-box"></td>`
+    )
+    .join("");
+  document.querySelector("#table1").innerHTML += `<tr>${rowHtml}</tr>`;
+
+  const clearInputs = (e) => (
+    e.preventDefault(),
+    document
+      .querySelectorAll("#table1 input")
+      .forEach((input) => (input.value = ""))
+  );
+
+  function submitCalculate() {
+    const inputs = [...document.querySelectorAll("#table1 input")];
+    const baseIndex = inputs.findIndex((index) => index.value !== "");
+    if (baseIndex === -1) {
+      return alert("กรุณาป้อนตัวเลขในช่องป้อนข้อมูลใดช่องหนึ่งจากห้าช่อง");
+    }
+
+    const factor = parseFloat(inputs[baseIndex].value) / headers[baseIndex];
+    inputs.forEach((input, index) => {
+      if (index !== baseIndex) {
+        input.value = (headers[index] * factor).toFixed(2);
+      }
+    });
+  }
+</script>
