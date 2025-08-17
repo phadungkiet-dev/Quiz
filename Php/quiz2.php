@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'กรุณาป้อนตัวเลขในช่องป้อนข้อมูลใดช่องหนึ่งจากห้าช่อง';
     } else {
         $baseIndex = $index[0];
-        $factor    = (float)$values[$baseIndex] / $headers[$baseIndex];
+        $factor = (float)$values[$baseIndex] / $headers[$baseIndex];
 
         array_walk($values, function (&$value, $index) use ($headers, $baseIndex, $factor) {
             if ($index !== $baseIndex) {
